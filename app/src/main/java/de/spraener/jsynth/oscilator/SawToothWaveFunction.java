@@ -4,7 +4,7 @@ import de.spraener.jsynth.SoundFormat;
 import de.spraener.jsynth.modular.annotations.SynthComponent;
 
 @SynthComponent(name="sawtooth")
-public class SawToothWaveFunction  implements OscillatorFuntion {
+public class SawToothWaveFunction  implements OscillatorFunction {
     private final SoundFormat soundFormat;
 
     public SawToothWaveFunction(SoundFormat format) {

@@ -8,22 +8,22 @@ import de.spraener.jsynth.modular.annotations.SynthParamProvider;
 public class OscillatorFunctionProvider {
 
     @ProvidedValue(value="SawTooth", icon="sawtooth")
-    public OscillatorFuntion sawTooth() {
+    public OscillatorFunction sawTooth() {
         return new SawToothWaveFunction(SynthContext.soundFormat);
     }
 
     @ProvidedValue(value="Pulse", icon="pulsewave")
-    public OscillatorFuntion pulsewave() {
+    public OscillatorFunction pulsewave() {
         return new SquareWaveFunction(SynthContext.soundFormat);
     }
 
     @ProvidedValue(value="Sine", icon="sinewave")
-    public OscillatorFuntion sinewave() {
+    public OscillatorFunction sinewave() {
         return new SineWaveFunction(SynthContext.soundFormat);
     }
 
     @ProvidedValue(value="Noise", icon="noise")
-    public OscillatorFuntion noise() {
+    public OscillatorFunction noise() {
         return new NoiseWaveFunction();
     }
 }

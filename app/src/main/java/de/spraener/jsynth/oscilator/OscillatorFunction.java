@@ -1,6 +1,6 @@
 package de.spraener.jsynth.oscilator;
 
-public interface OscillatorFuntion {
+public interface OscillatorFunction {
     /**
      * Generates Sample values of frequency f at time t. Values are in the range
      * of -1 to 1

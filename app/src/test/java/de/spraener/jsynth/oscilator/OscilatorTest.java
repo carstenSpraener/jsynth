@@ -17,7 +17,7 @@ class OscilatorTest {
     @Test
     public void testSimpleSineOscilator() throws Exception {
         SoundFormat soundFormat = new SoundFormat();
-        OscillatorFuntion[] functions = new OscillatorFuntion[]{
+        OscillatorFunction[] functions = new OscillatorFunction[]{
                 new SineWaveFunction(soundFormat),
                 new SquareWaveFunction(soundFormat).setPulseLengthPercent(0.3f),
                 new SawToothWaveFunction(soundFormat),
@@ -44,7 +44,7 @@ class OscilatorTest {
         vca.release(0.2f);
 
 
-        for (OscillatorFuntion function : functions) {
+        for (OscillatorFunction function : functions) {
             Oscillator uut = new Oscillator(soundFormat, function);
             uut.setKey(PianoKeys.A_TUNE);
 

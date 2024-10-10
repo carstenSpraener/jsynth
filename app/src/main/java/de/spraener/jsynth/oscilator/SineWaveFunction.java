@@ -4,7 +4,7 @@ import de.spraener.jsynth.SoundFormat;
 import de.spraener.jsynth.modular.annotations.SynthComponent;
 
 @SynthComponent(name="sinewave")
-public class SineWaveFunction implements OscillatorFuntion {
+public class SineWaveFunction implements OscillatorFunction {
     private static final float twoPi = (float)(Math.PI * 2f);
 
     public SineWaveFunction(SoundFormat sf) {

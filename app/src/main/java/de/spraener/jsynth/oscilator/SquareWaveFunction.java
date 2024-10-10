@@ -5,7 +5,7 @@ import de.spraener.jsynth.modular.annotations.SynthComponent;
 import de.spraener.jsynth.modular.annotations.SynthParam;
 
 @SynthComponent(name="pulsewave")
-public class SquareWaveFunction implements OscillatorFuntion {
+public class SquareWaveFunction implements OscillatorFunction {
     private final SoundFormat soundFormat;
     @SynthParam(name="pulsewidth")
     private float pulseLengthPercent = 0.5f;
