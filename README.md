@@ -32,17 +32,17 @@ Now take this synth and lets play a tone:
 ```java
  @Test
  public void testRingModulation() throws Exception {
-    SoundFormat sf = SynthContext.soundFormat;
-    // Create a Synth with two Sine-Wave Oscillators
-    ModularSynth ms = ModularSynthCreator.createRingModulatedSynth(sf);
-
     // Modulate C4 as Carrier with G4 as Modulator
-    ms.setValue("osc1.frequence", PianoKeys.A4.f());
-    ms.setValue("osc2.frequence", PianoKeys.E5.f());
-    ms.setValue("ringmode.rate", 0.5f);
+    ms.setValue("osc1.frequence", PianoKeys.C4.f());
+    ms.setValue("osc2.frequence", PianoKeys.G4.f());
     // Sample 15 carrier periods of audio
-    float duration = 1.0f / PianoKeys.A4.f() * 15.0f;
+    float duration = 1.0f/PianoKeys.C4.f() * 15.0f;
     float[] buffer = recordSamples(duration, sf, ms);
+    // Play and visualize the audio
+    audioTestSupport.playSoundData(buffer, sf.sampleRate);
+
+    // Sample 5 seconds to hear something
+    buffer = recordSamples(5.0f, sf, ms);
     // Play and visualize the audio
     audioTestSupport.playSoundData(buffer, sf.sampleRate);
 }

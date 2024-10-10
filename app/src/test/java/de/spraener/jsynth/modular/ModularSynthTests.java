@@ -150,9 +150,8 @@ public class ModularSynthTests {
         ModularSynth ms = ModularSynthCreator.createRingModulatedSynth(sf);
 
         // Modulate C4 as Carrier with G4 as Modulator
-        ms.setValue("osc1.frequence", PianoKeys.A4.f());
-        ms.setValue("osc2.frequence", PianoKeys.E5.f());
-        ms.setValue("ringmod.rate", 0.5f);
+        ms.setValue("osc1.frequence", PianoKeys.C4.f());
+        ms.setValue("osc2.frequence", PianoKeys.G4.f());
         // Sample 15 carrier periods of audio
         float duration = 1.0f/PianoKeys.C4.f() * 15.0f;
         float[] buffer = recordSamples(duration, sf, ms);
