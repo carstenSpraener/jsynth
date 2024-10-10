@@ -1,6 +1,7 @@
 .gradle
 **/build/
 !src/**/build/
+**/test.wav
 
 # Ignore Gradle GUI config
 gradle-app.setting
