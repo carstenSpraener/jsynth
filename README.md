@@ -53,5 +53,5 @@ Here is the resulting wave form:
 ![ringmod.png](./doc/images/ringmod.png)
 
 And here how it sounds:
-[test.wav](doc/images/test.wav)
+[test.wav](doc/images/ringmod.wav)
 
