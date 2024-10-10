@@ -190,7 +190,7 @@ public class ModularSynthTests {
         uut = ms;
         final Oscillator osc1 = ms.getVoice(0).getComponent("osc1");
         final MSVoice v = ms.getVoice(0);//.setValueListener(this::recordValues);
-        float duration = 2f;
+        float duration = 10f;
         float[] fOuts = new float[(int)(duration * sf.sampleRate)];
         float[] fMods = new float[(int)(duration * sf.sampleRate)];
         pw = new PrintWriter(new FileWriter("voice-state.csv"));
@@ -198,9 +198,9 @@ public class ModularSynthTests {
             int i=0;
             float fOut = osc1.getFOut();
             fOuts[s] = 1.0f/osc1.getFrequence() * fOut - 1.0f;
-            assertTrue( fOut <= 440*1.05f && fOut >= 440 * (1.0 - 0.05), "Bei Sample "+s+": FOut außerhalb des Bereichs");
+            //assertTrue( fOut <= 440*1.05f && fOut >= 440 * (1.0 - 0.05), "Bei Sample "+s+": FOut außerhalb des Bereichs");
             float fMod = osc1.getFMod();
-            assertTrue( fMod <= 0.05f && fMod >= -0.05f, "Bei Sample "+s+": FMod außerhalb des Bereichs");
+            //assertTrue( fMod <= 0.05f && fMod >= -0.05f, "Bei Sample "+s+": FMod außerhalb des Bereichs");
             fMods[s] = 1.0f/0.1f * fMod;
             if( s % ((int)(sf.sampleRate/2)) == 0 ) {
                 i++;

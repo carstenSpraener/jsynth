@@ -8,10 +8,7 @@ import de.spraener.jsynth.filter.AllpassFilter;
 import de.spraener.jsynth.filter.StackedFilter;
 import de.spraener.jsynth.filter.StreamFilter;
 import de.spraener.jsynth.filter.VCF;
-import de.spraener.jsynth.oscilator.Oscillator;
-import de.spraener.jsynth.oscilator.SawToothWaveFunction;
-import de.spraener.jsynth.oscilator.SineWaveFunction;
-import de.spraener.jsynth.oscilator.SquareWaveFunction;
+import de.spraener.jsynth.oscilator.*;
 
 import java.util.function.Consumer;
 
@@ -94,7 +91,7 @@ public class ModularSynthCreator {
      */
     public static ModularSynth createSimpleSineFModFromLFOSynth(SoundFormat sf, Consumer<ModularSynth>... modifiers) {
         ModularSynth ms = new ModularSynth(1);
-        ms.addComponent("osc1", ()->new Oscillator(sf, new SineWaveFunction(sf)));
+        ms.addComponent("osc1", ()->new Oscillator(sf, new PhasedSineFunction(sf)));
         ms.addComponent("lfo", ()->new Oscillator(sf, new SineWaveFunction(sf)));
         ms.addComponent("lfoFmod", () -> new SignalConnection(ms, "lfo.out", "osc1.fmod"));
         applyModifiers(modifiers, ms);
@@ -102,9 +99,8 @@ public class ModularSynthCreator {
         ms.build();
 
         ms.setValue("lfo.keyFollow", 0f);
-        ms.setValue("lfo.frequence", 2f);
-        ms.setValue("lfoFmod.rate", 0.05f);
-
+        ms.setValue("lfo.frequence", 220f);
+        ms.setValue("lfoFmod.rate", 0.08f);
         return ms;
     }
 
