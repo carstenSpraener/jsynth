@@ -7,21 +7,21 @@ import de.spraener.jsynth.modular.annotations.SynthParam;
 @SynthComponent(name="pulsewave")
 public class SquareWaveFunction implements OscillatorFunction {
     private final SoundFormat soundFormat;
+    private final float dT;
+    private float phase = 0f;
     @SynthParam(name="pulsewidth")
     private float pulseLengthPercent = 0.5f;
 
     public SquareWaveFunction(SoundFormat format) {
         this.soundFormat = format;
+        this.dT = 1.0f/soundFormat.sampleRate;
     }
 
     @Override
     public final float getSample(float fHz, float tSec) {
-        float pLength = (float)1.0/fHz;
-        float tWave = tSec % pLength;
-        if( tWave < pLength* pulseLengthPercent) {
-            return 1.0f;
-        }
-        return -1.0f;
+        phase += dT * fHz;
+        phase %= 1.0f;
+        return phase < pulseLengthPercent ? 1f : -1f;
     }
 
     public float getPulseLengthPercent() {

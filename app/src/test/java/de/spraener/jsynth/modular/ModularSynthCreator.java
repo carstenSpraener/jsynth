@@ -92,7 +92,7 @@ public class ModularSynthCreator {
     public static ModularSynth createSimpleSineFModFromLFOSynth(SoundFormat sf, Consumer<ModularSynth>... modifiers) {
         ModularSynth ms = new ModularSynth(1);
         ms.addComponent("osc1", ()->new Oscillator(sf, new PhasedSineFunction(sf)));
-        ms.addComponent("lfo", ()->new Oscillator(sf, new SineWaveFunction(sf)));
+        ms.addComponent("lfo", ()->new Oscillator(sf, new PhasedSineFunction(sf)));
         ms.addComponent("lfoFmod", () -> new SignalConnection(ms, "lfo.out", "osc1.fmod"));
         applyModifiers(modifiers, ms);
         ms.setOutValue("osc1.out");
@@ -100,7 +100,7 @@ public class ModularSynthCreator {
 
         ms.setValue("lfo.keyFollow", 0f);
         ms.setValue("lfo.frequence", 220f);
-        ms.setValue("lfoFmod.rate", 0.08f);
+        ms.setValue("lfoFmod.rate", 0.2f);
         return ms;
     }
 

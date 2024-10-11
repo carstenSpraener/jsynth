@@ -11,7 +11,7 @@ import de.spraener.jsynth.voice.KeyListener;
 public class Oscillator implements KeyListener, TimeResponsive {
     private SoundFormat format;
     @SynthParam(name="WaveForm", type= OscillatorFunction.class)
-    private final OscillatorFunction function;
+    private OscillatorFunction function;
     @SynthParam(name="octave")
     private int octave = 0;
     @SynthParam(name="tune")
@@ -118,5 +118,10 @@ public class Oscillator implements KeyListener, TimeResponsive {
 
     public float getFrequence() {
         return this.frequence;
+    }
+
+    public Oscillator setFunction(OscillatorFunction function) {
+        this.function = function;
+        return this;
     }
 }

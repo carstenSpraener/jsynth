@@ -2,6 +2,7 @@ package de.spraener.jsynth.modular;
 
 import de.spraener.jsynth.*;
 import de.spraener.jsynth.oscilator.Oscillator;
+import de.spraener.jsynth.oscilator.SawToothWaveFunction;
 import de.spraener.jsynth.oscilator.SineWaveFunction;
 import org.junit.jupiter.api.Test;
 
@@ -186,39 +187,26 @@ public class ModularSynthTests {
     @Test
     public void testFrequencyModulation() throws Exception {
         SoundFormat sf = SynthContext.soundFormat;
-        final ModularSynth ms = ModularSynthCreator.createSimpleSineFModFromLFOSynth(sf);
+        final ModularSynth ms = ModularSynthCreator.createSimpleSineFModFromLFOSynth(sf, m -> {
+            m.addComponent("ringmod", ()->new SignalConnection(m, "lfo.out", "osc1.volume"));
+        });
         uut = ms;
         final Oscillator osc1 = ms.getVoice(0).getComponent("osc1");
+        final Oscillator lfo = ms.getVoice(0).getComponent("lfo");
+        osc1.setFunction(new SawToothWaveFunction(sf));
+        lfo.setFunction(new SawToothWaveFunction(sf));
+
+        ms.setValue("lfo.frequence", 128.5781f);
+        ms.setValue("ringmod.rate", 0.2f);
+
         final MSVoice v = ms.getVoice(0);//.setValueListener(this::recordValues);
         float duration = 10f;
-        float[] fOuts = new float[(int)(duration * sf.sampleRate)];
-        float[] fMods = new float[(int)(duration * sf.sampleRate)];
         pw = new PrintWriter(new FileWriter("voice-state.csv"));
-        float[] buffer = recordSamples(duration, 8f, sf, ms, (t,s) -> {
-            int i=0;
-            float fOut = osc1.getFOut();
-            fOuts[s] = 1.0f/osc1.getFrequence() * fOut - 1.0f;
-            //assertTrue( fOut <= 440*1.05f && fOut >= 440 * (1.0 - 0.05), "Bei Sample "+s+": FOut außerhalb des Bereichs");
-            float fMod = osc1.getFMod();
-            //assertTrue( fMod <= 0.05f && fMod >= -0.05f, "Bei Sample "+s+": FMod außerhalb des Bereichs");
-            fMods[s] = 1.0f/0.1f * fMod;
-            if( s % ((int)(sf.sampleRate/2)) == 0 ) {
-                i++;
-            }
-            float peak = v.lastValueMap().get("osc1.out");
-            if( Math.abs(peak) >= 1.01 ) {
-                System.err.println("Bei Sample " + s + ": Sample außerhalb des Bereichs");
-            }
-        });
+        float[] buffer = recordSamples(duration, 8f, sf, ms);
         pw.flush();
         pw.close();
         pw = null;
-        WaveDisplay wd = new WaveDisplay(fOuts);
-        wd.scaleWidth();
-
-        WaveDisplay wd2 = new WaveDisplay(fMods);
-        wd2.scaleWidth();
-        audioTestSupport.playSoundData(buffer, sf.sampleRate, w -> w.scaleWidth());
+        audioTestSupport.playSoundData(buffer, sf.sampleRate);
     }
 
     private List<String> keys = new ArrayList<>();
